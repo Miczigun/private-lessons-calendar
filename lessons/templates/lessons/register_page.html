@@ -1,0 +1,10 @@
+{% extends 'main.html' %}
+{% block title%} Register page {% endblock %}
+{% block content %}
+<main>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+    </form>
+</main>
+{% endblock %}
