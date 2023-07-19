@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from .forms import UserForm
-from .models import User
+from .models import User, Topic
 
 
 # Create your views here.
@@ -46,4 +46,8 @@ def register_page(request):
 
 
 def menu_page(request):
-    return render(request, 'lessons/menu.html')
+
+    topics = Topic.objects.all()
+    context = {'topics': topics}
+
+    return render(request, 'lessons/menu.html', context)

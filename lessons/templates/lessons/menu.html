@@ -2,6 +2,17 @@
 {% block title%} Menu {% endblock %}
 {% block content %}
 <main>
-    <h1>Checking that page is working</h1>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                        {% for topic in topics %}
+                            <a class="my-4">{{ topic.name }}</a><br>
+                        {% endfor %}
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+    </div>
 </main>
 {% endblock %}
