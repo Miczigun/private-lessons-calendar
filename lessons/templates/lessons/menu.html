@@ -3,14 +3,24 @@
 {% block content %}
 <main>
     <div class="container-fluid">
+        <div>
+            <form action="{% url 'menu' %}" method="get">
+                <input name="q" placeholder="Search for lessons" class="form-control my-2">
+            </form>
+        </div>
         <div class="row">
-            <div class="col">
-                        {% for topic in topics %}
-                            <a class="my-4">{{ topic.name }}</a><br>
-                        {% endfor %}
+            <div class="col-md-1" style="background-color:#FFFFFF">
+                {% for topic in topics %}
+                    <a href="{% url 'menu' %}?q={{topic.name}}" class="my-4">{{ topic.name }}</a><br>
+                {% endfor %}
             </div>
-            <div class="col">
-
+            <div class="col-md-11">
+                {% for lesson in lessons %}
+                    <div class="container-fluid">
+                        <a>{{lesson.teacher.username}}</a><br>
+                        <a>{{lesson.name}}</a><br>
+                    </div>
+                {% endfor %}
             </div>
         </div>
     </div>

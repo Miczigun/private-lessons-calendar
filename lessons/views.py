@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib import messages
+from django.db.models import Q
 from django.contrib.auth import login, logout, authenticate
 from .forms import UserForm
-from .models import User, Topic
+from .models import User, Topic, Lessons
 
 
 # Create your views here.
@@ -46,8 +47,15 @@ def register_page(request):
 
 
 def menu_page(request):
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
+
+    lessons = Lessons.objects.filter(
+        Q(topic__name__icontains=q) |
+        Q(name__icontains=q) |
+        Q(description__icontains=q)
+    )
 
     topics = Topic.objects.all()
-    context = {'topics': topics}
+    context = {'topics': topics, 'lessons': lessons}
 
     return render(request, 'lessons/menu.html', context)
