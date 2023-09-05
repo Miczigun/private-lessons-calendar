@@ -33,6 +33,10 @@ def login_page(request):
 
     return render(request, 'lessons/login_page.html')
 
+def logout_user(request):
+    logout(request)
+    return redirect('login-page')
+
 
 def register_page(request):
     form = UserForm()
@@ -59,3 +63,10 @@ def menu_page(request):
     context = {'topics': topics, 'lessons': lessons}
 
     return render(request, 'lessons/menu.html', context)
+
+def profile_page(request, pk):
+    user = User.objects.get(id=pk)
+    lessons = Lessons.objects.get(teacher=user)
+
+    context = {'user':user, 'lessons':lessons }
+    return render(request, 'lessons/profile.html', context)
