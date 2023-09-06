@@ -18,7 +18,7 @@
                 {% for lesson in lessons %}
                     <div class="container-fluid">
                         <a href="{% url 'profile-page' lesson.teacher.id %}">{{lesson.teacher.username}}</a><br>
-                        <a>{{lesson.name}}</a><br>
+                        <a href="{% url 'lesson-page' lesson.id %}">{{lesson.name}}</a><br>
                     </div>
                 {% endfor %}
             </div>

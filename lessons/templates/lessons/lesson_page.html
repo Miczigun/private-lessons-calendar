@@ -1,0 +1,36 @@
+{% extends 'main.html' %}
+{% block title %} {{ lesson.name }} {% endblock %}
+{% block content %}
+<main>
+    <div>
+        <h1>{{ lesson.name }}</h1>
+        <p>{{ lesson.description }}</p>
+    </div>
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>Time</th>
+                <th>Monday</th>
+                <th>Tuesday</th>
+                <th>Wednesday</th>
+                <th>Thursday</th>
+                <th>Friday</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for time in times %}
+            <tr>
+                <td>{{ time }}</td>
+                <td>M</td>
+                <td>T</td>
+                <td>W</td>
+                <td>Th</td>
+                <td>F</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</main>
+{% endblock %}

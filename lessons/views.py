@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.db.models import Q
 from django.contrib.auth import login, logout, authenticate
 from .forms import UserForm
-from .models import User, Topic, Lessons
+from .models import User, Topic, Lessons, Classes
 
 
 # Create your views here.
@@ -64,9 +64,21 @@ def menu_page(request):
 
     return render(request, 'lessons/menu.html', context)
 
+
 def profile_page(request, pk):
     user = User.objects.get(id=pk)
-    lessons = Lessons.objects.get(teacher=user)
+    lessons = Lessons.objects.filter(teacher=user)
 
-    context = {'user':user, 'lessons':lessons }
+    context = {'user': user, 'lessons': lessons }
     return render(request, 'lessons/profile.html', context)
+
+
+def lesson_page(request, pk):
+    lesson = Lessons.objects.get(id=pk)
+    classes = Classes.objects.filter(lesson=pk)
+    times = [f"{hour}:00" for hour in range(8, 17)]
+
+    context = {'lesson': lesson, 'classes': classes, 'times': times}
+
+    return render(request, 'lessons/lesson_page.html', context)
+

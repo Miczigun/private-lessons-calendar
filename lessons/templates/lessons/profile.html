@@ -1,5 +1,17 @@
 {% extends 'main.html' %}
 {% block title%} Profile {% endblock %}
 {% block content %}
+<main>
+    <div>
+        <p>{{ user.username }}</p>
+        <p>{{ user.bio }}</p>
+    </div>
+    <div>
+        <p>Your lessons</p>
+        {% for lesson in lessons %}
+            <a>{{ lesson.name }}</a>
+        {% endfor %}
+    </div>
 
+</main>
 {% endblock %}

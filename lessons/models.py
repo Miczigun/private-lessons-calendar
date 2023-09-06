@@ -51,3 +51,13 @@ class Lessons(models.Model):
     description = models.TextField(null=True, blank=True)
     participants = models.ManyToManyField(
         User, related_name='participants', blank=True)
+
+
+class Classes(models.Model):
+    lesson = models.ForeignKey(Lessons, on_delete=models.CASCADE)
+    day = models.CharField(max_length=10)
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+
+    class Meta:
+        ordering = ["start_time"]
