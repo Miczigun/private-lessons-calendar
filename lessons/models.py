@@ -49,8 +49,6 @@ class Lessons(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
-    participants = models.ManyToManyField(
-        User, related_name='participants', blank=True)
 
 
 class Classes(models.Model):
@@ -58,6 +56,7 @@ class Classes(models.Model):
     day = models.CharField(max_length=10)
     start_time = models.TimeField()
     end_time = models.TimeField()
+    booked = models.BooleanField(default=False)
 
     class Meta:
         ordering = ["start_time"]

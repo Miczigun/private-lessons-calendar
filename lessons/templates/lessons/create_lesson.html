@@ -1,0 +1,18 @@
+{% extends 'main.html' %}
+{% block title%} Profile {% endblock %}
+{% block content %}
+<main>
+    <div class="container text-center w-50 mt-5">
+        <form method="post" action="">
+        {% csrf_token %}
+            {% for field in form %}
+            <div>
+                <label class="form-label">{{ field.label }}</label> <br>
+                {{field}}
+            </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-info my-2">Create lesson</button>
+        </form>
+    </div>
+</main>
+{% endblock %}

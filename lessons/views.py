@@ -3,7 +3,8 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.db.models import Q
 from django.contrib.auth import login, logout, authenticate
-from .forms import UserForm
+from django.contrib.auth.decorators import login_required
+from .forms import UserForm, LessonForm
 from .models import User, Topic, Lessons, Classes
 
 
@@ -82,3 +83,19 @@ def lesson_page(request, pk):
 
     return render(request, 'lessons/lesson_page.html', context)
 
+@login_required
+def create_lesson(request):
+    form = LessonForm()
+
+    if request.method == "POST":
+        form = LessonForm(request.POST)
+        if form.is_valid():
+            lesson = form.save(commit=False)
+            lesson.teacher = request.user
+            lesson.save()
+            print(lesson.pk)
+            print(lesson.id)
+            return redirect('profile-page', pk=request.user.id)
+
+    context = {'form': form}
+    return render(request, 'lessons/create_lesson.html', context)
