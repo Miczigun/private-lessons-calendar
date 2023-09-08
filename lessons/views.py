@@ -77,9 +77,8 @@ def profile_page(request, pk):
 def lesson_page(request, pk):
     lesson = Lessons.objects.get(id=pk)
     classes = Classes.objects.filter(lesson=pk)
-    times = [f"{hour}:00" for hour in range(8, 17)]
 
-    context = {'lesson': lesson, 'classes': classes, 'times': times}
+    context = {'lesson': lesson, 'classes': classes}
 
     return render(request, 'lessons/lesson_page.html', context)
 
@@ -93,8 +92,16 @@ def create_lesson(request):
             lesson = form.save(commit=False)
             lesson.teacher = request.user
             lesson.save()
-            print(lesson.pk)
-            print(lesson.id)
+            days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+            for time in range(8,16):
+                for day in days:
+                    Classes.objects.create(
+                        lesson=lesson,
+                        day=day,
+                        start_time=f'{time}:00',
+                        end_time=f'{time+1}:00',
+                    )
+
             return redirect('profile-page', pk=request.user.id)
 
     context = {'form': form}

@@ -2,15 +2,14 @@
 {% block title %} {{ lesson.name }} {% endblock %}
 {% block content %}
 <main>
-    <div>
+    <div class="container text-center">
         <h1>{{ lesson.name }}</h1>
         <p>{{ lesson.description }}</p>
     </div>
-    <div>
-        <table>
+    <div class="container text-center">
+        <table class="table table-bordered">
             <thead>
             <tr>
-                <th>Time</th>
                 <th>Monday</th>
                 <th>Tuesday</th>
                 <th>Wednesday</th>
@@ -19,16 +18,17 @@
             </tr>
             </thead>
             <tbody>
-            {% for time in times %}
             <tr>
-                <td>{{ time }}</td>
-                <td>M</td>
-                <td>T</td>
-                <td>W</td>
-                <td>Th</td>
-                <td>F</td>
-            </tr>
+            {% for class in classes %}
+                {% if forloop.counter|divisibleby:5 %}
+                <td>{{ class.start_time|time:"H:i" }} {{ class.day }}</td>
+                </tr>
+                <tr>
+                    {% else %}
+                    <td>{{ class.start_time|time:"H:i" }} {{ class.day }}</td>
+                    {% endif %}
             {% endfor %}
+                </tr>
             </tbody>
         </table>
     </div>

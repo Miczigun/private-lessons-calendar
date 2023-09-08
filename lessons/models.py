@@ -59,4 +59,4 @@ class Classes(models.Model):
     booked = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ["start_time"]
+        ordering = ["start_time", "pk"]
