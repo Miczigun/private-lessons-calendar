@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'private_lessons_calendar',
-    'lessons.apps.LessonsConfig'
+    'lessons.apps.LessonsConfig',
+    'phonenumber_field'
 ]
 
 MIDDLEWARE = [

@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.db.models import Q
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
-from .forms import UserForm, LessonForm
+from .forms import UserForm, LessonForm, ClassesForm
 from .models import User, Topic, Lessons, Classes
 
 
@@ -106,3 +106,21 @@ def create_lesson(request):
 
     context = {'form': form}
     return render(request, 'lessons/create_lesson.html', context)
+
+
+def update_class(request, pk):
+    classes = Classes.objects.get(id=pk)
+    form = ClassesForm()
+    if request.method == "POST":
+        form = ClassesForm(request.POST)
+        if form.is_valid():
+            classes.phone = form.cleaned_data['phone']
+            classes.email = form.cleaned_data['email']
+            classes.name = form.cleaned_data['name']
+            classes.surname = form.cleaned_data['surname']
+            classes.booked = True
+            classes.save()
+            return redirect('lesson-page', pk=classes.lesson.id)
+
+    context = {'form': form}
+    return render(request, 'lessons/update_class.html', context)

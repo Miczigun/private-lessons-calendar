@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import BaseUserManager
+from phonenumber_field.modelfields import PhoneNumberField
 # Create your models here.
 
 
@@ -57,6 +58,10 @@ class Classes(models.Model):
     start_time = models.TimeField()
     end_time = models.TimeField()
     booked = models.BooleanField(default=False)
+    phone = PhoneNumberField(unique=True, null=True)
+    email = models.EmailField(null=True)
+    name = models.CharField(max_length=20, null=True)
+    surname = models.CharField(max_length=30, null=True)
 
     class Meta:
         ordering = ["start_time", "pk"]

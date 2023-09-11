@@ -21,11 +21,23 @@
             <tr>
             {% for class in classes %}
                 {% if forloop.counter|divisibleby:5 %}
-                <td>{{ class.start_time|time:"H:i" }} {{ class.day }}</td>
+                <td>
+                    {% if class.booked %}
+                    <a href="#" class="btn btn-danger disabled w-100">{{ class.start_time|time:"H:i" }} - {{ class.end_time|time:"H:i" }}</a>
+                    {% else %}
+                    <a href="{% url 'update-class' class.id %}" class="btn btn-success w-100">{{ class.start_time|time:"H:i" }} - {{ class.end_time|time:"H:i" }}</a>
+                    {% endif %}
+                </td>
                 </tr>
                 <tr>
                     {% else %}
-                    <td>{{ class.start_time|time:"H:i" }} {{ class.day }}</td>
+                    <td>
+                        {% if class.booked %}
+                        <a href="#" class="btn btn-danger disabled w-100">{{ class.start_time|time:"H:i" }} - {{ class.end_time|time:"H:i" }}</a>
+                        {% else %}
+                        <a href="{% url 'update-class' class.id %}" class="btn btn-success w-100">{{ class.start_time|time:"H:i" }} - {{ class.end_time|time:"H:i" }}</a>
+                        {% endif %}
+                    </td>
                     {% endif %}
             {% endfor %}
                 </tr>

@@ -1,0 +1,26 @@
+{% extends 'main.html' %}
+{% block title%} Class {% endblock %}
+{% block content %}
+<main>
+    <div class="container text-center w-25">
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li>{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <h1>Site works!</h1>
+        <form method="post" action="">
+            {% csrf_token %}
+            {% for field in form %}
+            <div>
+                <label class="form-label">{{ field.label }}</label> <br>
+                {{ field }}
+            </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-info my-2">Order</button>
+        </form>
+    </div>
+</main>
+{% endblock %}
