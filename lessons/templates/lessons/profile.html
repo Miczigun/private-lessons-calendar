@@ -2,14 +2,22 @@
 {% block title%} Profile {% endblock %}
 {% block content %}
 <main>
-    <div>
-        <p>{{ user.username }}</p>
-        <p>{{ user.bio }}</p>
+    <div class="container text-center">
+        <h1>{{ user.username }}</h1>
+        <p class="lead">{{ user.bio }}</p>
     </div>
-    <div>
-        <p>Your lessons</p>
+    <div class="container text-center">
+        {% if request.user == user %}
+        <h1>Your lessons</h1>
+        {% else %}
+        <h1>Lessons</h1>
+        {% endif %}
         {% for lesson in lessons %}
-            <a>{{ lesson.name }}</a> <br>
+            {% if request.user == user %}
+            <a href="{% url 'your-lesson' lesson.id %}" class="link link-underline link-underline-opacity-0">{{ lesson.name }}</a> <br>
+            {% else %}
+            <a href="{% url 'lesson-page' lesson.id %}" class="link link-underline link-underline-opacity-0">{{ lesson.name }}</a> <br>
+            {% endif %}
         {% endfor %}
     </div>
 

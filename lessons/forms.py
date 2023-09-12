@@ -3,6 +3,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from phonenumber_field.formfields import PhoneNumberField
 from phonenumber_field.widgets import PhoneNumberPrefixWidget
+from phonenumber_field.validators import validate_international_phonenumber
 from .models import User, Lessons, Classes
 
 
@@ -26,6 +27,10 @@ class LessonForm(ModelForm):
 
 
 class ClassesForm(forms.Form):
+
+    name = forms.CharField(max_length=20)
+    surname = forms.CharField(max_length=30)
+    email = forms.EmailField()
     phone = PhoneNumberField(region='PL', widget=PhoneNumberPrefixWidget(
         initial='PL',
         country_choices=[
@@ -33,9 +38,6 @@ class ClassesForm(forms.Form):
             ('US', 'United States')
         ]
     ))
-    email = forms.EmailField()
-    name = forms.CharField(max_length=20)
-    surname = forms.CharField(max_length=30)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

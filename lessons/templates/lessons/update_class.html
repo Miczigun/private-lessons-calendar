@@ -3,22 +3,21 @@
 {% block content %}
 <main>
     <div class="container text-center w-25">
-        {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-            <li>{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
         <h1>Site works!</h1>
         <form method="post" action="">
             {% csrf_token %}
             {% for field in form %}
-            <div>
-                <label class="form-label">{{ field.label }}</label> <br>
+            <div class="container-fluid">
+                <label class="form-label">{{ field.label }}</label>
                 {{ field }}
             </div>
             {% endfor %}
+                {% if form.phone.errors %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  {{ form.phone.errors.0 }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endif %}
             <button type="submit" class="btn btn-info my-2">Order</button>
         </form>
     </div>

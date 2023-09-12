@@ -107,6 +107,15 @@ def create_lesson(request):
     context = {'form': form}
     return render(request, 'lessons/create_lesson.html', context)
 
+@login_required
+def your_lesson(request, pk):
+    lesson = Lessons.objects.get(id=pk)
+    classes = Classes.objects.filter(lesson=pk)
+
+    context = {'lesson': lesson, 'classes': classes}
+    return render(request, 'lessons/your_lessons.html', context)
+
+
 
 def update_class(request, pk):
     classes = Classes.objects.get(id=pk)
