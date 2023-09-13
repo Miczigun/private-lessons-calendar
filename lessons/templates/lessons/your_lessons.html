@@ -23,9 +23,13 @@
                 {% if forloop.counter|divisibleby:5 %}
                 <td>
                     {% if class.booked %}
-                    <a href="#" class="btn btn-danger disabled w-100">{{ class.start_time|time:"H:i" }} - {{ class.end_time|time:"H:i" }}</a>
+                    <a href="#" class="btn btn-danger disabled w-100 h-100">
+                        {{ class.start_time|time:"H:i" }} - {{ class.end_time|time:"H:i" }} <br>
+                        {{ class.name }} {{ class.surname }} <br>
+                        {{ class.phone }} <br>
+                    </a>
                     {% else %}
-                    <a href="{% url 'update-class' class.id %}" class="btn btn-success w-100">{{ class.start_time|time:"H:i" }} - {{ class.end_time|time:"H:i" }}</a>
+                    <a href="{% url 'update-class' class.id %}" class="btn btn-success w-100 h-100">{{ class.start_time|time:"H:i" }} - {{ class.end_time|time:"H:i" }}</a>
                     {% endif %}
                 </td>
                 </tr>
@@ -33,9 +37,13 @@
                     {% else %}
                     <td>
                         {% if class.booked %}
-                        <a href="#" class="btn btn-danger disabled w-100">{{ class.start_time|time:"H:i" }} - {{ class.end_time|time:"H:i" }}</a>
+                        <a href="#" class="btn btn-danger disabled w-100 h-100">
+                            {{ class.start_time|time:"H:i" }} - {{ class.end_time|time:"H:i" }} <br>
+                            {{ class.name }} {{ class.surname }} <br>
+                            {{ class.phone }} <br>
+                        </a>
                         {% else %}
-                        <a href="{% url 'update-class' class.id %}" class="btn btn-success w-100">{{ class.start_time|time:"H:i" }} - {{ class.end_time|time:"H:i" }}</a>
+                        <a href="{% url 'update-class' class.id %}" class="btn btn-success w-100 h-100">{{ class.start_time|time:"H:i" }} - {{ class.end_time|time:"H:i" }}</a>
                         {% endif %}
                     </td>
                     {% endif %}
