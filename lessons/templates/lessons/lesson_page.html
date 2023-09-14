@@ -6,7 +6,7 @@
         <h1>{{ lesson.name }}</h1>
         <p>{{ lesson.description }}</p>
     </div>
-    <div class="container text-center">
+    <div class="table-responsive text-center">
         <table class="table table-bordered">
             <thead>
             <tr>
@@ -23,9 +23,15 @@
                 {% if forloop.counter|divisibleby:5 %}
                 <td>
                     {% if class.booked %}
-                    <a href="#" class="btn btn-danger disabled w-100">{{ class.start_time|time:"H:i" }} - {{ class.end_time|time:"H:i" }}</a>
+                    <a href="#" class="btn btn-danger disabled w-100">
+                        {{ class.start_time|time:"H:i" }} - {{ class.end_time|time:"H:i" }} <br>
+                        Booked
+                    </a>
                     {% else %}
-                    <a href="{% url 'update-class' class.id %}" class="btn btn-success w-100">{{ class.start_time|time:"H:i" }} - {{ class.end_time|time:"H:i" }}</a>
+                    <a href="{% url 'update-class' class.id %}" class="btn btn-success w-100">
+                        {{ class.start_time|time:"H:i" }} - {{ class.end_time|time:"H:i" }} <br>
+                        Book a lesson
+                    </a>
                     {% endif %}
                 </td>
                 </tr>
@@ -33,9 +39,15 @@
                     {% else %}
                     <td>
                         {% if class.booked %}
-                        <a href="#" class="btn btn-danger disabled w-100">{{ class.start_time|time:"H:i" }} - {{ class.end_time|time:"H:i" }}</a>
+                        <a href="#" class="btn btn-danger disabled w-100">
+                            {{ class.start_time|time:"H:i" }} - {{ class.end_time|time:"H:i" }} <br>
+                            Booked
+                        </a>
                         {% else %}
-                        <a href="{% url 'update-class' class.id %}" class="btn btn-success w-100">{{ class.start_time|time:"H:i" }} - {{ class.end_time|time:"H:i" }}</a>
+                        <a href="{% url 'update-class' class.id %}" class="btn btn-success w-100">
+                            {{ class.start_time|time:"H:i" }} - {{ class.end_time|time:"H:i" }} <br>
+                            Book a lesson
+                        </a>
                         {% endif %}
                     </td>
                     {% endif %}
