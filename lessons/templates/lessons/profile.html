@@ -25,14 +25,14 @@ document.addEventListener("DOMContentLoaded", function() {
         <h1>Lessons</h1>
         {% endif %}
     </div>
-    <div class="container-fluid">
+    <div class="container">
         {% for lesson in lessons %}
             {% if request.user == user %}
-            <div class="row mt-2">
-                <div class="col-md-8 text-left">
+            <div class="row mt-2 pl-4">
+                <div class="col pl-5">
                     <a href="{% url 'your-lesson' lesson.id %}" class="link link-underline link-underline-opacity-0">{{ lesson.name }}</a>
                 </div>
-                <div class="col-md-4 text-right">
+                <div class="col text-end">
                     <a href="{% url 'delete-lesson' lesson.id %}" class="btn btn-danger confirm-delete">Delete</a>
                 </div>
             </div>

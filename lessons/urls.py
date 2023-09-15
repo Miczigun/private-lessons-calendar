@@ -11,6 +11,7 @@ urlpatterns = [
     path('create-lesson/', views.create_lesson, name='create-lesson'),
     path('update-class/<int:pk>', views.update_class, name='update-class'),
     path('delete-lesson/<int:pk>', views.delete_lesson, name='delete-lesson'),
+    path('delete-class/<int:pk>', views.delete_class, name='delete-class'),
 
     path('', views.menu_page, name='menu'),
 ]

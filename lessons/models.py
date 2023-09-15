@@ -58,7 +58,7 @@ class Classes(models.Model):
     start_time = models.TimeField()
     end_time = models.TimeField()
     booked = models.BooleanField(default=False)
-    phone = PhoneNumberField(unique=True, null=True)
+    phone = PhoneNumberField(null=True)
     email = models.EmailField(null=True)
     name = models.CharField(max_length=20, null=True)
     surname = models.CharField(max_length=30, null=True)

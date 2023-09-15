@@ -133,12 +133,27 @@ def update_class(request, pk):
     context = {'form': form}
     return render(request, 'lessons/update_class.html', context)
 
-
+@login_required
 def delete_lesson(request, pk):
     lesson = Lessons.objects.get(id=pk)
 
     if request.user == lesson.teacher:
         lesson.delete()
         return redirect('profile-page', pk=request.user.id)
+    else:
+        return HttpResponse("You don't have permission to do that!")
+
+@login_required
+def delete_class(request, pk):
+    classes = Classes.objects.get(id=pk)
+
+    if request.user == classes.lesson.teacher:
+        classes.booked = False
+        classes.name = ""
+        classes.surname = ""
+        classes.email = ""
+        classes.phone = ""
+        classes.save()
+        return redirect('your-lesson', pk=classes.lesson.id)
     else:
         return HttpResponse("You don't have permission to do that!")

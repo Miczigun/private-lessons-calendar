@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         {{ class.email }} <br>
                         {{ class.phone }} <br>
                         </p>
-                        <a href="{% url 'menu' %}" class="btn btn-danger w-100 mt-2 confirm-delete" data-confirm="Are you sure you want to delete this class?">Delete</a>
+                        <a href="{% url 'delete-class' class.id %}" class="btn btn-danger w-100 mt-2 confirm-delete" data-confirm="Are you sure you want to delete this class?">Delete</a>
 
                     {% else %}
 
@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         {{ class.email }} <br>
                         {{ class.phone }} <br>
                         </p>
-                        <a href="{% url 'menu' %}" class="btn btn-danger w-100 mt-2 confirm-delete" data-confirm="Are you sure you want to delete this class?">Delete</a>
+                        <a href="{% url 'delete-class' class.id %}" class="btn btn-danger w-100 mt-2 confirm-delete" data-confirm="Are you sure you want to delete this class?">Delete</a>
 
                         {% else %}
 
