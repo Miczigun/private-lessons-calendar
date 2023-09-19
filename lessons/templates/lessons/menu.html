@@ -9,16 +9,17 @@
             </form>
         </div>
         <div class="row">
-            <div class="col-md-1" style="background-color:#FFFFFF">
+            <div class="col-md-2">
                 {% for topic in topics %}
-                    <a href="{% url 'menu' %}?q={{topic.name}}" class="my-4">{{ topic.name }}</a><br>
+                <a href="{% url 'menu' %}?q={{topic.name}}" class="display-4 link-underline link-underline-opacity-0 link-opacity-25-hover">{{ topic.name }}</a><br>
                 {% endfor %}
             </div>
-            <div class="col-md-11">
+            <div class="col-md-10">
                 {% for lesson in lessons %}
                     <div class="container-fluid">
-                        <a href="{% url 'profile-page' lesson.teacher.id %}">{{lesson.teacher.username}}</a><br>
-                        <a href="{% url 'lesson-page' lesson.id %}">{{lesson.name}}</a><br>
+                        <a href="{% url 'profile-page' lesson.teacher.id %}" class="h3 link-underline link-underline-opacity-0 link-opacity-10-hover">{{lesson.teacher.username}}</a><br>
+                        <a href="{% url 'lesson-page' lesson.id %}" class="fw-semibold fs-5 link-underline link-underline-opacity-0">{{lesson.name}}</a><br>
+                        <p>{{ lesson.description|truncatewords:50 }}</p>
                     </div>
                 {% endfor %}
             </div>

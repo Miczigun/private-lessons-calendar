@@ -157,3 +157,20 @@ def delete_class(request, pk):
         return redirect('your-lesson', pk=classes.lesson.id)
     else:
         return HttpResponse("You don't have permission to do that!")
+
+
+@login_required
+def update_lesson(request, pk):
+    lesson = Lessons.objects.get(id=pk)
+    form = LessonForm(instance=lesson)
+
+    if request.user != lesson.teacher:
+        return HttpResponse("Your are nor allowed here!")
+
+    if request.method == "POST":
+        form = LessonForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('profile-page', pk=lesson.teacher.id)
+
+    context = {'form': form}

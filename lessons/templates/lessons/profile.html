@@ -30,20 +30,21 @@ document.addEventListener("DOMContentLoaded", function() {
             {% if request.user == user %}
             <div class="row mt-2 pl-4">
                 <div class="col pl-5">
-                    <a href="{% url 'your-lesson' lesson.id %}" class="link link-underline link-underline-opacity-0">{{ lesson.name }}</a>
+                    <a href="{% url 'your-lesson' lesson.id %}" class="fw-semibold fs-5 link-underline link-underline-opacity-0">{{ lesson.name }}</a>
                     <br>
-                    <p class="fw-light">{{lesson.description}}</p>
+                    <p>{{lesson.description}}</p>
                 </div>
                 <div class="col text-end">
+                    <a href="#" class="btn btn-success mx-1">Update</a>
                     <a href="{% url 'delete-lesson' lesson.id %}" class="btn btn-danger confirm-delete">Delete</a>
                 </div>
             </div>
             {% else %}
             <div class="row justify-content-between">
                 <div class="col-md-8">
-                    <a href="{% url 'lesson-page' lesson.id %}" class="link link-underline link-underline-opacity-0">{{ lesson.name }}</a>
+                    <a href="{% url 'lesson-page' lesson.id %}" class="fw-semibold fs-5 link-underline link-underline-opacity-0">{{ lesson.name }}</a>
                     <br>
-                    <p class="fw-light">{{lesson.description}}</p>
+                    <p>{{lesson.description}}</p>
                 </div>
             </div>
             {% endif %}
