@@ -11,7 +11,13 @@
                 {{field}}
             </div>
             {% endfor %}
-            <button type="submit" class="btn btn-info my-2">Create lesson</button>
+            <button type="submit" class="btn btn-info my-2">
+                {% if action == 'create' %}
+                Create lesson
+                {% else %}
+                Update lesson
+                {% endif %}
+            </button>
         </form>
     </div>
 </main>

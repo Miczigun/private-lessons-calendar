@@ -15,6 +15,7 @@
                 {% endfor %}
             </div>
             <div class="col-md-10">
+                {% if lessons %}
                 {% for lesson in lessons %}
                     <div class="container-fluid">
                         <a href="{% url 'profile-page' lesson.teacher.id %}" class="h3 link-underline link-underline-opacity-0 link-opacity-10-hover">{{lesson.teacher.username}}</a><br>
@@ -22,6 +23,11 @@
                         <p>{{ lesson.description|truncatewords:50 }}</p>
                     </div>
                 {% endfor %}
+                {% else %}
+                <div class="container-fluid">
+                    <p class="fs-3">That topic does not have any lessons</p>
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>

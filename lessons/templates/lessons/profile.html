@@ -18,8 +18,33 @@ document.addEventListener("DOMContentLoaded", function() {
 <main>
     <div class="container text-center">
         <h1>{{ user.username }}</h1>
+        {% if user.bio %}
         <p class="lead">{{ user.bio }}</p>
+        {% else %}
+        <p class="lead">That user does not have bio yet</p>
+        {% endif %}
         {% if request.user == user %}
+        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#bioModal">Edit Bio</button>
+        <div class="modal fade" id="bioModal" tabindex="-1" aria-labelledby="bioModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="bioModalLabel">Edit Bio</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" action="{% url 'update-bio' user.id %}">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="bioTextarea" class="form-label">Bio</label>
+                                <textarea class="form-control" id="bioTextarea" name="bio" rows="4">{{ user.bio }}</textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         <h1>Your lessons</h1>
         {% else %}
         <h1>Lessons</h1>
@@ -35,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     <p>{{lesson.description}}</p>
                 </div>
                 <div class="col text-end">
-                    <a href="#" class="btn btn-success mx-1">Update</a>
+                    <a href="{% url 'update-lesson' lesson.id %}" class="btn btn-success mx-1">Update</a>
                     <a href="{% url 'delete-lesson' lesson.id %}" class="btn btn-danger confirm-delete">Delete</a>
                 </div>
             </div>

@@ -82,6 +82,7 @@ def lesson_page(request, pk):
 
     return render(request, 'lessons/lesson_page.html', context)
 
+
 @login_required
 def create_lesson(request):
     form = LessonForm()
@@ -104,8 +105,9 @@ def create_lesson(request):
 
             return redirect('profile-page', pk=request.user.id)
 
-    context = {'form': form}
+    context = {'form': form, 'action': 'create'}
     return render(request, 'lessons/create_lesson.html', context)
+
 
 @login_required
 def your_lesson(request, pk):
@@ -133,6 +135,7 @@ def update_class(request, pk):
     context = {'form': form}
     return render(request, 'lessons/update_class.html', context)
 
+
 @login_required
 def delete_lesson(request, pk):
     lesson = Lessons.objects.get(id=pk)
@@ -142,6 +145,7 @@ def delete_lesson(request, pk):
         return redirect('profile-page', pk=request.user.id)
     else:
         return HttpResponse("You don't have permission to do that!")
+
 
 @login_required
 def delete_class(request, pk):
@@ -170,7 +174,24 @@ def update_lesson(request, pk):
     if request.method == "POST":
         form = LessonForm(request.POST)
         if form.is_valid():
-            form.save()
+            lesson.topic = form.cleaned_data['topic']
+            lesson.name = form.cleaned_data['name']
+            lesson.description = form.cleaned_data['description']
+            lesson.save()
             return redirect('profile-page', pk=lesson.teacher.id)
 
-    context = {'form': form}
+    context = {'form': form, 'action': 'update'}
+    return render(request, 'lessons/create_lesson.html', context)
+
+
+@login_required
+def update_bio(request, pk):
+    user = User.objects.get(id=pk)
+
+    if request.user != user:
+        return HttpResponse("You do not have permission to do this!")
+
+    if request.method == 'POST':
+        user.bio = request.POST.get('bio')
+        user.save()
+        return redirect('profile-page', pk=user.id)
