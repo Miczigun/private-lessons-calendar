@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'private_lessons_calendar',
     'lessons.apps.LessonsConfig',
-    'phonenumber_field'
+    'phonenumber_field',
+    'api.apps.ApiConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
