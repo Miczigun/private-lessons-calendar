@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from lessons.models import User, Topic, Lessons, Classes
+from phonenumber_field.serializerfields import PhoneNumberField
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -21,6 +22,9 @@ class LessonsSerializer(serializers.ModelSerializer):
 
 
 class ClassesSerializer(serializers.ModelSerializer):
+
+    phone = PhoneNumberField(region='PL')
+
     class Meta:
         model = Classes
         fields = '__all__'
