@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import BaseUserManager
 from phonenumber_field.modelfields import PhoneNumberField
@@ -50,6 +51,11 @@ class Lessons(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
+
+    def teacher_url(self):
+        if self.teacher:
+            return reverse('user-detail', args=[str(self.teacher.id)])
+        return None
 
 
 class Classes(models.Model):

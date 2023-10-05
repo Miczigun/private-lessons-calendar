@@ -5,6 +5,11 @@ from lessons.models import User, Topic, Lessons, Classes
 from .serializers import UserSerializer, TopicSerializer, LessonsSerializer, ClassesSerializer
 
 
+class UserRetrieveView(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
 class TopicListView(generics.ListAPIView):
     queryset = Topic.objects.all()
     serializer_class = TopicSerializer
