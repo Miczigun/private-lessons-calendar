@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from django.urls import reverse
 from lessons.models import User, Topic, Lessons, Classes
 from phonenumber_field.serializerfields import PhoneNumberField
 
@@ -17,7 +18,10 @@ class TopicSerializer(serializers.ModelSerializer):
 
 class LessonsSerializer(serializers.ModelSerializer):
     topic = serializers.SerializerMethodField()
-    teacher_url = serializers.SerializerMethodField()
+    teacher = serializers.HyperlinkedIdentityField(
+        view_name='user-detail',
+        lookup_field='teacher_id',
+        lookup_url_kwarg='pk')
 
     class Meta:
         model = Lessons
@@ -25,9 +29,6 @@ class LessonsSerializer(serializers.ModelSerializer):
 
     def get_topic(self, obj):
         return obj.topic.name if obj.topic else None
-
-    def get_teacher_url(self, obj):
-        return obj.teacher_url()
 
 
 class ClassesSerializer(serializers.ModelSerializer):
@@ -37,3 +38,20 @@ class ClassesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Classes
         fields = '__all__'
+
+
+class LessonsRetrieveSerializer(serializers.ModelSerializer):
+    topic = serializers.SerializerMethodField()
+    classes = ClassesSerializer(many=True, read_only=True)
+    teacher = serializers.HyperlinkedIdentityField(
+        view_name='user-detail',
+        lookup_field='teacher_id',
+        lookup_url_kwarg='pk')
+
+    class Meta:
+        model = Lessons
+        fields = '__all__'
+
+    def get_topic(self, obj):
+        return obj.topic.name if obj.topic else None
+

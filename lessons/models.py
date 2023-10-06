@@ -52,14 +52,9 @@ class Lessons(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
 
-    def teacher_url(self):
-        if self.teacher:
-            return reverse('user-detail', args=[str(self.teacher.id)])
-        return None
-
 
 class Classes(models.Model):
-    lesson = models.ForeignKey(Lessons, on_delete=models.CASCADE)
+    lesson = models.ForeignKey(Lessons, on_delete=models.CASCADE, related_name='classes')
     day = models.CharField(max_length=10)
     start_time = models.TimeField()
     end_time = models.TimeField()
