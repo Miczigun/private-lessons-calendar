@@ -6,6 +6,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 # Create your models here.
 
 
+# Define a custom user manager to handle user creation
 class UserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
@@ -29,6 +30,7 @@ class UserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 
+# Define the custom User model
 class User(AbstractUser):
     email = models.EmailField(unique=True)
     bio = models.TextField(null=True)
@@ -39,6 +41,7 @@ class User(AbstractUser):
     objects = UserManager()
 
 
+# Define a model for Topics in order to categorize lessons
 class Topic(models.Model):
     name = models.CharField(max_length=200)
 
@@ -46,6 +49,7 @@ class Topic(models.Model):
         return self.name
 
 
+# Define a model for Lessons
 class Lessons(models.Model):
     teacher = models.ForeignKey(User, on_delete=models.CASCADE)
     topic = models.ForeignKey(Topic, on_delete=models.SET_NULL, null=True)
@@ -53,6 +57,7 @@ class Lessons(models.Model):
     description = models.TextField(null=True, blank=True)
 
 
+# Define a model for Classes
 class Classes(models.Model):
     lesson = models.ForeignKey(Lessons, on_delete=models.CASCADE, related_name='classes')
     day = models.CharField(max_length=10)
@@ -65,4 +70,5 @@ class Classes(models.Model):
     surname = models.CharField(max_length=30, null=True)
 
     class Meta:
+        # Define the default ordering for classes in order to find easier Classes connected with lesson
         ordering = ["start_time", "pk"]
