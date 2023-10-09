@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from rest_framework import generics, viewsets
 from rest_framework.permissions import IsAuthenticated
+from .permissions import OwnProfilePermission
 from lessons.models import User, Topic, Lessons, Classes
-from .serializers import UserSerializer, TopicSerializer, LessonsSerializer, ClassesSerializer, LessonsRetrieveSerializer
+from .serializers import (UserSerializer, TopicSerializer, LessonsSerializer, ClassesSerializer,
+                          LessonsRetrieveSerializer)
 
 
 class UserRetrieveView(generics.RetrieveAPIView):
@@ -42,6 +44,12 @@ class LessonsCreateView(generics.CreateAPIView):
                     start_time=f'{time}:00',
                     end_time=f'{time + 1}:00',
                 )
+
+
+class LessonsUpdateView(generics.UpdateAPIView):
+    queryset = Lessons.objects.all()
+    serializer_class = LessonsSerializer
+    permission_classes = (IsAuthenticated, OwnProfilePermission)
 
 
 class ClassesRetrieveView(generics.RetrieveAPIView):
